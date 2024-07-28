@@ -14,19 +14,11 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::asserts::assert_sequence;
 
     #[test]
     fn test_a000217() {
-        assert_eq!(a000217(0), 0);
-        assert_eq!(a000217(1), 1);
-        assert_eq!(a000217(2), 3);
-        assert_eq!(a000217(3), 6);
-        assert_eq!(a000217(4), 10);
-        assert_eq!(a000217(5), 15);
-        assert_eq!(a000217(6), 21);
-        assert_eq!(a000217(7), 28);
-        assert_eq!(a000217(8), 36);
-        assert_eq!(a000217(9), 45);
-        assert_eq!(a000217(10), 55);
+        let expected = [0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55];
+        assert_sequence(a000217, &expected);
     }
 }
