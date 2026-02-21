@@ -1,5 +1,7 @@
 # rust-oeis-playground
 
+![Coverage](https://raw.githubusercontent.com/kitsuyui/octocov-central/main/badges/kitsuyui/rust-oeis-playground/coverage.svg)
+
 This is a playground for implementing sequences from the [OEIS](https://oeis.org/) in Rust.
 
 ## Directory structure
