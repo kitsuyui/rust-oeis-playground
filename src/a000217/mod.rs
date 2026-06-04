@@ -1,19 +1,14 @@
 /// https://oeis.org/A000217
 /// Triangular numbers: a(n) = binomial(n+1, 2) = n*(n+1)/2.
+/// T must be an integer type; OEIS A000217 is defined only for non-negative integer indices.
 pub fn a000217<T>(n: T) -> Option<T>
 where
-    T: num_traits::CheckedAdd
-        + num_traits::CheckedMul
-        + std::ops::Div<Output = T>
-        + std::ops::Rem<Output = T>
-        + std::cmp::PartialEq
-        + From<u8>
-        + Copy,
+    T: num_traits::PrimInt,
 {
-    let one = T::from(1);
-    let two = T::from(2);
+    let one = T::one();
+    let two = one + one;
     let n_plus_one = n.checked_add(&one)?;
-    if n % two == T::from(0) {
+    if n % two == T::zero() {
         (n / two).checked_mul(&n_plus_one)
     } else {
         n.checked_mul(&(n_plus_one / two))
