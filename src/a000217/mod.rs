@@ -5,10 +5,19 @@ where
     T: std::ops::Add<Output = T>
         + std::ops::Mul<Output = T>
         + std::ops::Div<Output = T>
+        + std::ops::Rem<Output = T>
+        + std::cmp::PartialEq
         + From<u8>
         + Copy,
 {
-    n * (n + T::from(1)) / T::from(2)
+    let one = T::from(1);
+    let two = T::from(2);
+
+    if n % two == T::from(0) {
+        (n / two) * (n + one)
+    } else {
+        n * ((n + one) / two)
+    }
 }
 
 #[cfg(test)]
@@ -20,5 +29,11 @@ mod tests {
     fn test_a000217() {
         let expected = [0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55];
         assert_sequence(a000217, &expected);
+    }
+
+    #[test]
+    fn test_a000217_u8_boundary_without_intermediate_overflow() {
+        assert_eq!(a000217(16_u8), 136);
+        assert_eq!(a000217(22_u8), 253);
     }
 }
