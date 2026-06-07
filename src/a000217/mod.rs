@@ -1,6 +1,11 @@
-/// https://oeis.org/A000217
-/// Triangular numbers: a(n) = binomial(n+1, 2) = n*(n+1)/2.
-/// T must be an integer type; OEIS A000217 is defined only for non-negative integer indices.
+/// <https://oeis.org/A000217>
+///
+/// Triangular numbers: `a(n) = n * (n + 1) / 2`.
+///
+/// `T` must be a primitive integer type. OEIS A000217 is defined only for
+/// non-negative integer indices.
+///
+/// Returns `None` if `n + 1` or the subsequent multiplication overflows `T`.
 pub fn a000217<T>(n: T) -> Option<T>
 where
     T: num_traits::PrimInt,
