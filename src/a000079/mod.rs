@@ -7,7 +7,7 @@
 /// negative or exceeds [`u32::MAX`]), or if `2^n` would overflow `T`.
 pub fn a000079<T>(n: T) -> Option<T>
 where
-    T: num_traits::CheckedShl + num_traits::One + num_traits::ToPrimitive,
+    T: num_traits::CheckedShl + num_traits::One + num_traits::ToPrimitive + num_traits::Unsigned,
 {
     let shift = n.to_u32()?;
     T::one().checked_shl(shift)
@@ -20,7 +20,7 @@ mod tests {
 
     #[test]
     fn test_a000079() {
-        let expected = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024];
+        let expected: [u32; 11] = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024];
         assert_sequence(a000079, &expected);
     }
 
