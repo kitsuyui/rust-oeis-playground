@@ -12,9 +12,25 @@ where
     T::Error: std::fmt::Debug,
     F: Fn(T) -> Option<T>,
 {
+    assert!(
+        !expected.is_empty(),
+        "assert_sequence requires at least one expected value"
+    );
+
     for (n, &expected) in expected.iter().enumerate() {
         let index = T::try_from(n).expect("sequence index exceeds type range");
         let result = fn_seq(index).expect("sequence value should not overflow for small n");
         assert_eq!(result, expected);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::assert_sequence;
+
+    #[test]
+    #[should_panic(expected = "assert_sequence requires at least one expected value")]
+    fn assert_sequence_rejects_empty_expected_values() {
+        assert_sequence(|_| Some(0_u32), &[]);
     }
 }
