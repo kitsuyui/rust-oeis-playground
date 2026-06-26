@@ -5,11 +5,16 @@
 /// `T` must be a primitive integer type. OEIS A000217 is defined only for
 /// non-negative integer indices.
 ///
-/// Returns `None` if `n + 1` or the subsequent multiplication overflows `T`.
+/// Returns `None` if `n` is negative, or if `n + 1` or the subsequent
+/// multiplication overflows `T`.
 pub fn a000217<T>(n: T) -> Option<T>
 where
     T: num_traits::PrimInt,
 {
+    if n < T::zero() {
+        return None;
+    }
+
     let one = T::one();
     let two = one + one;
     let n_plus_one = n.checked_add(&one)?;
@@ -36,5 +41,11 @@ mod tests {
         assert_eq!(a000217(16_u8), Some(136));
         assert_eq!(a000217(22_u8), Some(253));
         assert_eq!(a000217(23_u8), None);
+    }
+
+    #[test]
+    fn test_a000217_rejects_negative_input() {
+        assert_eq!(a000217(-1_i32), None);
+        assert_eq!(a000217(-2_i32), None);
     }
 }
